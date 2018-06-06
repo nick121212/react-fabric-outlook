@@ -1,8 +1,8 @@
 # Microsoft Outlook style for React
 
-create-react-app
+react-fabric-outlook
 
-## [LIVE DEMO](https://nick121212.github.io/react-outlook/build/index.html#/)
+## [LIVE DEMO](https://nick121212.github.io/react-fabric-outlook/build/index.html#/)
 
 ## Dependency
 
