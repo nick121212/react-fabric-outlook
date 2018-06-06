@@ -42,7 +42,7 @@ react-fabric-outlook
 ### 1. Clone this repository and run npm install
 
 ```shell
-git clone https://github.com/nick121212/react-outlook.git
+git clone https://github.com/nick121212/react-fabric-outlook.git
 npm i
 ```
 
