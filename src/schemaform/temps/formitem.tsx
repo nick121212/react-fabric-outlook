@@ -24,8 +24,11 @@ export class Temp extends PureComponent<IProps> {
     }
 
     return (
-      <div className={classNames("mb3", { "ba b--red": !isValid })}>
-        {tempOptions.showTitle !== false ? <Label className="f6 mv1 fw4">{getTitle(this.props)}:</Label> : null}
+      <div className={classNames("mb3", tempOptions.className, { "error": !isValid })}>
+        {tempOptions.showTitle !== false ?
+          <Label className={classNames("f6 mv1 fw4", { "red": !isValid })}>
+            {getTitle(this.props)}:</Label>
+          : null}
 
         {children}
 

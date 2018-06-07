@@ -12,7 +12,7 @@ import { DashboardTestComponent } from './form';
 export default class Component extends PureComponent<any, any>{
   public render() {
     return (
-      <div className="flex h-100 flex-auto">
+      <div className="flex w-100 h-100">
         <div className="flex flex-column" >
           <div>
             <Link
@@ -120,7 +120,7 @@ export default class Component extends PureComponent<any, any>{
           </div>
         </div>
 
-        <div className="flex flex-column" style={{ width: 375 }}>
+        <div className="flex flex-column shrink-0" style={{ width: 375 }}>
           <div>
             <Link
               normalTheme={LightTheme}

@@ -1,8 +1,9 @@
 import { UiSchema } from "fx-schema-form-core";
 import schemaFormReact from "fx-schema-form-react";
+// import { DefaultProps } from "fx-schema-form-react/libs/components";
+import { SchemaFormProps } from "fx-schema-form-react/libs/libs/dec";
 import { fromJS } from "immutable";
 import { Button, PrimaryButton } from "office-ui-fabric-react/lib/Button";
-// import { SchemaFormProps } from "fx-schema-form-react/libs/libs/dec";
 import React from "react";
 import { compose, defaultProps } from "recompose";
 
@@ -11,7 +12,6 @@ import { globalOptions } from "../../schemaform/options/default";
 
 
 const { schemaFormDec, SchemaForm } = schemaFormReact;
-
 
 @(compose(
   defaultProps({
@@ -24,7 +24,8 @@ const { schemaFormDec, SchemaForm } = schemaFormReact;
       habit: [],
       favoriteColor: "Monday",
       sex: "15",
-      born: ""
+      born: "2018/6/29",
+      isEighteen: true
     }
   }),
   // hocFactory.get("asyncSchema"),
@@ -32,10 +33,10 @@ const { schemaFormDec, SchemaForm } = schemaFormReact;
     rootReducerKey: ["schemaForm"],
     parentKeys: ["dashboard"]
   })) as any)
-export class DashboardTestComponent extends React.PureComponent<any, any> {
+export class DashboardTestComponent extends React.PureComponent<SchemaFormProps & any, any> {
 
   public render() {
-    const { parentKeys, schemaId, validateAll, data } = this.props;
+    const { parentKeys, schemaId, validateAll, data, isValid, resetForm } = this.props;
 
     if (!this.props.root) {
       return null;
@@ -66,6 +67,9 @@ export class DashboardTestComponent extends React.PureComponent<any, any> {
             }
           }),
           children: [{
+            key: "firstName",
+            title: "姓名"
+          }, {
             key: "favoriteColor",
             widget: "dropdown",
             title: "显示每周的第一天为",
@@ -169,21 +173,64 @@ export class DashboardTestComponent extends React.PureComponent<any, any> {
                 }
               }
             })
+          } as UiSchema, {
+            key: "lastName",
+            title: "一年的第一会走开始于",
+            widget: "dropdown",
+            hocs: ["utils", "theme", "format", "field", "validate", "show", "temp"],
+            options: fromJS({
+              temp: {
+                formItem: {
+                  className: "ml4"
+                }
+              },
+              widget: {
+                dropdown: {
+                  options: {
+                    options: [{
+                      key: "1",
+                      text: "一年的第一天"
+                    }, {
+                      key: "4",
+                      text: "一年之中第一个包含4天的周"
+                    }, {
+                      key: "7",
+                      text: "一年的第一个完整周"
+                    }]
+                  }
+                }
+              },
+              hoc: {
+                show: {
+                  condition: {
+                    paths: [
+                      { path: "../isEighteen" }
+                    ]
+                  },
+                  paths: ["../isEighteen"]
+                }
+              }
+            })
           } as UiSchema]
         }]}
         parentKeys={parentKeys}
         globalOptions={globalOptions}
-        ajv={curAjv} >
+        ajv={curAjv} />
 
-        <PrimaryButton className="mt3" onClick={() => {
-          if (validateAll) {
-            validateAll();
-          }
-        }}>保存设置</PrimaryButton>
+      <PrimaryButton className="mt3" onClick={async () => {
+        if (validateAll) {
+          const { data: dataRaw, isValid: isValidRaw } = await validateAll();
 
-        <Button className=" ml2 mt3">放弃</Button>
+          console.log(dataRaw, isValidRaw);
+        }
+      }}>保存设置({String(isValid)})</PrimaryButton>
 
-      </SchemaForm>
+      <Button onClick={() => {
+        if (resetForm) {
+          resetForm();
+        }
+      }} className=" ml2 mt3">放弃</Button>
+
     </>;
   }
 }

@@ -84,42 +84,38 @@ console.log(hocFactory);
 new ResolveLib(curAjv, {
   $id: "dashboard",
   type: "object",
-  required: ["firstName", "lastName"],
-  // tslint:disable-next-line:object-literal-sort-keys
+  required: ["firstName", "lastName", "habit"],
+  default: {},
   properties: {
     firstName: {
-      type: "string"
+      type: "string",
+      minLength: 5
     },
-
     lastName: {
-      type: "string"
+      type: "string",
+      default: "1"
     },
-
     age: {
       type: "number"
     },
-
     isEighteen: {
       type: "boolean"
     },
-
     favoriteColor: {
       type: "string"
     },
-
     sex: {
       type: "string"
     },
-
     habit: {
       type: "array",
+      minItems: 2,
       items: {
         type: "string"
       }
     },
-
     born: {
       type: "string"
     }
   }
-});
+} as any);

@@ -18,7 +18,7 @@ export const globalOptions = Immutable.fromJS({
             widgetHocs: [schemaFormReact.hocFactory.get("data")({
                 data: true,
                 meta: true,
-                metaKeys: ["isValid", "isLoading", "errorText", "options", "children"]
+                metaKeys: ["isLoading", "options", "children"]
             })]
         },
         array: {
