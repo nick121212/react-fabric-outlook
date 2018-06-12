@@ -122,7 +122,7 @@ export class DashboardTestComponent extends React.PureComponent<SchemaFormProps 
                 }
               }
             })
-          } as UiSchema, {
+          } as UiSchema, "habit", {
             key: "habit",
             field: "none",
             temps: ["formItem"],

@@ -12,7 +12,7 @@ export interface IProps extends DefaultProps, UtilsHocOutProps, ArrayHocOutProps
 export const tempKey = "card";
 export class Temp extends PureComponent<IProps> {
   public render(): any {
-    const { children } = this.props;
+    const { children, initArrayComponent, arrayIndex } = this.props;
     // const tempOptions = getOptions(this.props, schemaFormTypes.template, tempKey);
     // const { isValid = true, errorText = "", collapsing = false } = formItemMeta ? formItemMeta.toJS() : {};
 
@@ -22,6 +22,7 @@ export class Temp extends PureComponent<IProps> {
 
     return (
       <div className="bb b--light-gray">
+        {initArrayComponent ? initArrayComponent(this.props, arrayIndex) : null}
         {children}
       </div>
     );

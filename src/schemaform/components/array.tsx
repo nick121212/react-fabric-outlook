@@ -1,5 +1,6 @@
 import schemaFormReact from "fx-schema-form-react";
 import { DefaultProps } from "fx-schema-form-react/libs/components";
+import { Button } from "office-ui-fabric-react/lib/Button";
 import React from "react";
 import { compose, shouldUpdate } from "recompose";
 
@@ -21,35 +22,40 @@ const { hocFactory } = schemaFormReact;
     })
 ) as any)
 export class ArrayComponent extends React.PureComponent<DefaultProps & any> {
-    // private addItem: any;
-    // private hideItems: any;
+    private addItem: any;
+    private hideItems: any;
 
     constructor(props: DefaultProps & any) {
         super(props);
 
-        // this.addItem = () => {
-        //     props.addItem(this.props);
-        // };
-        // this.hideItems = (collapsing: boolean) => {
-        //     props.updateItemMeta(props, null, {
-        //         collapsing
-        //     });
-        // };
+        this.addItem = () => {
+            props.addItem(this.props);
+        };
+        this.hideItems = (collapsing: boolean) => {
+            props.updateItemMeta(props, null, {
+                collapsing
+            });
+        };
     }
 
     public render() {
-        // const { uiSchema, formItemData, formItemMeta } = this.props;
-        // const { maxItems } = uiSchema;
-        // const { collapsing = false } = formItemMeta ? formItemMeta.toJS() : {};
-        // let canAdd = true;
+        const { uiSchema, formItemData, formItemMeta } = this.props;
+        const { maxItems } = uiSchema;
+        const { collapsing = false } = formItemMeta ? formItemMeta.toJS() : {};
+        let canAdd = true;
 
-        // if (Number.isInteger(maxItems) && Number.isInteger(formItemData)) {
-        //     canAdd = formItemData < maxItems;
-        // }
+        if (Number.isInteger(maxItems) && Number.isInteger(formItemData)) {
+            canAdd = formItemData < maxItems;
+        }
 
         return (
             <div key="opt">
-                {/*<Tooltip title="添加项">
+                <Button disabled={!canAdd} onClick={this.addItem}>添加项</Button>
+                <Button key={"collapsing" + collapsing} onClick={() => {
+                    this.hideItems(!collapsing);
+                }}>隐藏/显示</Button>
+
+                {/* <Tooltip title="添加项">
                     <IconButton key={"add" + canAdd} color="primary" aria-label="Add" disabled={!canAdd} onClick={this.addItem}>
                         <Icon>add</Icon>
                     </IconButton>
@@ -60,7 +66,7 @@ export class ArrayComponent extends React.PureComponent<DefaultProps & any> {
                     }}>
                         <Icon>{collapsing ? "keyboard_arrow_down" : "keyboard_arrow_up"}</Icon>
                     </IconButton>
-                  </Tooltip>*/}
+                </Tooltip>*/}
             </div>
         );
     }
