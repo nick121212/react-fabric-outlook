@@ -1,11 +1,14 @@
 import schemaFormReact from "fx-schema-form-react";
 import Immutable from "immutable";
+import { compose } from "recompose";
 
 import { LightTheme } from "../../fabric";
 import proxy from "../../modelproxy/proxy";
 import { ArrayComponent } from "../components/array";
 import { ArrayItemComponent } from "../components/arrayitem";
 import { NoneComponent } from "../components/none";
+
+const { hocFactory } = schemaFormReact;
 
 /**
  * 正常的表单配置
@@ -15,7 +18,7 @@ export const globalOptions = Immutable.fromJS({
         default: {
             temps: ["formItem"],
             hocs: ["utils", "theme", "format", "field", "validate", "array", "temp"],
-            widgetHocs: [schemaFormReact.hocFactory.get("data")({
+            widgetHocs: [hocFactory.get("data")({
                 data: true,
                 meta: true,
                 metaKeys: ["isLoading", "options", "children"]
@@ -27,13 +30,13 @@ export const globalOptions = Immutable.fromJS({
             ArrayFieldComponent: NoneComponent,
             // 这里为array字段添加sort排序功能
             formHocs: [
-                schemaFormReact.hocFactory.get("resetKey")({
+                hocFactory.get("resetKey")({
                     excludeKeys: ["formItemData", "formItemMeta"]
                 })
             ],
             formItemHocs: [
             ],
-            fieldHocs: [schemaFormReact.hocFactory.get("data")({
+            fieldHocs: [hocFactory.get("data")({
                 data: true,
                 dataLength: true
             })],
@@ -77,7 +80,7 @@ export const globalOptions = Immutable.fromJS({
     },
     temp: {
         card: {
-            tempHocs: [schemaFormReact.hocFactory.get("data")({
+            tempHocs: [hocFactory.get("data")({
                 meta: true,
                 data: true,
                 dataLength: true,
@@ -90,7 +93,7 @@ export const globalOptions = Immutable.fromJS({
             }
         },
         formItem: {
-            tempHocs: [schemaFormReact.hocFactory.get("data")({
+            tempHocs: [hocFactory.get("data")({
                 meta: true,
                 metaKeys: ["isLoading", "errorText", "isValid", "dirty"]
             })],
@@ -107,7 +110,10 @@ export const globalOptions = Immutable.fromJS({
         },
         array: {
             ArrayComponent,
-            ArrayItemComponent
+            ArrayItemComponent: compose(hocFactory.get("utils")(), hocFactory.get("data")({
+                data: true,
+                dataLength: true
+            }))(ArrayItemComponent)
         },
         schemaFormDec: {
             hocIncludeKeys: ["schemaId", "isValid", "data"]

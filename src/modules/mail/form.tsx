@@ -156,6 +156,11 @@ export class DashboardTestComponent extends React.PureComponent<SchemaFormProps 
                     }]
                   }
                 }
+              },
+              temp: {
+                formItem: {
+                  showToolbox: false
+                }
               }
             })
           } as UiSchema, {

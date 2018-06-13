@@ -1,6 +1,7 @@
 import schemaFormReact from "fx-schema-form-react";
 import { DefaultProps } from "fx-schema-form-react/libs/components";
-import { Button } from "office-ui-fabric-react/lib/Button";
+import { IconButton } from "office-ui-fabric-react/lib/Button";
+import { Icon } from "office-ui-fabric-react/lib/Icon";
 import React from "react";
 import { compose, shouldUpdate } from "recompose";
 
@@ -50,10 +51,14 @@ export class ArrayComponent extends React.PureComponent<DefaultProps & any> {
 
         return (
             <div key="opt">
-                <Button disabled={!canAdd} onClick={this.addItem}>添加项</Button>
-                <Button key={"collapsing" + collapsing} onClick={() => {
+                <IconButton disabled={!canAdd} onClick={this.addItem}>
+                    <Icon iconName="Add" />
+                </IconButton>
+                <IconButton key={"collapsing" + collapsing} onClick={() => {
                     this.hideItems(!collapsing);
-                }}>隐藏/显示</Button>
+                }}>
+                    <Icon iconName={collapsing ? "Lock" : "UnLock"}/>
+                </IconButton>
 
                 {/* <Tooltip title="添加项">
                     <IconButton key={"add" + canAdd} color="primary" aria-label="Add" disabled={!canAdd} onClick={this.addItem}>

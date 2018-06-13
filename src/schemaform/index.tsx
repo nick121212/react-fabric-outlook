@@ -110,7 +110,9 @@ new ResolveLib(curAjv, {
     habit: {
       type: "array",
       minItems: 2,
+      title: "兴趣爱好",
       items: {
+        title: "兴趣爱好",
         type: "string"
       }
     },

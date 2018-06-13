@@ -25,12 +25,12 @@ export class Temp extends PureComponent<IProps> {
 
     return (
       <div className={classNames("form-item mb3", tempOptions.className, { "error": !isValid })}>
-        {tempOptions.showTitle !== false ?
-          <Label className={classNames("f6 mv1 fw4", { "red": !isValid })}>
-            {getTitle(this.props)}:</Label>
-          : null}
+        <div className={classNames("flex items-center", { "mt2": tempOptions.showTitle })}>
+          <Label className={classNames("f6 mv1 fw4 black flex-auto", { "red": !isValid })}>
+            {tempOptions.showTitle !== false ? getTitle(this.props) : ""}</Label>
 
-        {initArrayComponent ? initArrayComponent(this.props, arrayIndex) : null}
+          {(initArrayComponent && tempOptions.showToolbox !== false) ? initArrayComponent(this.props, arrayIndex) : null}
+        </div>
 
         {children}
 
