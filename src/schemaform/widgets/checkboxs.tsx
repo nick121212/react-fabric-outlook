@@ -34,7 +34,7 @@ export class Widget extends PureComponent<IProps, any> {
         }
 
         return (
-            <div className="flex mt2">
+            <div className="flex flex-wrap mt2">
                 {widgetOptions.options.options.map((opt: any, index: number) => {
                     return (
                         <Checkbox

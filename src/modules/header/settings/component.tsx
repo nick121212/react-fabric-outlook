@@ -4,6 +4,7 @@ import { ActionButton } from "office-ui-fabric-react/lib/Button";
 import { Panel } from "../../../fabric";
 import { IProps } from "../constants";
 import { hoc } from "../container";
+import { DashboardTestComponent } from "./form";
 
 @(hoc as any)
 export default class Component extends PureComponent<IProps, any>{
@@ -16,7 +17,7 @@ export default class Component extends PureComponent<IProps, any>{
                 isOpen={settings}
                 hostId="app-con"
                 title="快速设置"
-                className="header-80"
+                className="header-80 h-100 overflow-auto"
                 onDismiss={() => {
                     if (setHeaderSettings) {
                         setHeaderSettings({
@@ -24,7 +25,9 @@ export default class Component extends PureComponent<IProps, any>{
                         });
                     }
                 }}>
-                <div className="pa4 w-100 h-100 bg-white flex flex-column">
+                <div className="pa4 w-100 h-100 bg-white overflow-auto">
+
+                    <DashboardTestComponent />
 
                     <ActionButton
                         data-automation-id='test'>
